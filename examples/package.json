@@ -1,0 +1,31 @@
+{
+  "name": "hugs-example",
+  "version": "0.0.1",
+  "description": "Hugs - examples",
+  "author": "Lawrence Carvalho",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lawrencec/hugs"
+  },
+  "keywords": [
+    "tdd",
+    "bdd",
+    "testing",
+    "test",
+    "unit",
+    "mocha",
+    "tap"
+  ],
+  "main": "./examples.js",
+  "dependencies": {
+    "chai-as-promised": "^5.3.0",
+    "mocha": "^2.4.5",
+    "tap": "^5.7.1"
+  },
+  "scripts": {
+    "examples": "npm run example:mocha; npm run example:tap",
+    "example:mocha": "HUGS_LIB=mocha _mocha --ui tdd './examples.js'",
+    "example:tap": "HUGS_LIB=tap tap --reporter spec  './examples.js'"
+  }
+}

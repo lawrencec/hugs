@@ -1,0 +1,10 @@
+engines:
+  eslint:
+    enabled: true
+
+ratings:
+   paths:
+   - "examples/**/*.js"
+   - "src/*.js"
+   - "test/**/*.js"
+   - "*.js"
