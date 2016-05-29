@@ -49,6 +49,7 @@ function hug(huggee) {
       });
     });
   };
+  hugged.cb = hugged;
   return hugged;
 }
 

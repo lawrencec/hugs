@@ -25,7 +25,7 @@ function exportAfters(hugged, huggee, sandbox) {
 }
 
 function hugMocha(huggee) {
-  return function mochaHug(title, testFunc) {
+  const hugged = function mochaHug(title, testFunc) {
     const isAsync = testFunc.length !== 0;
 
     if (isAsync) {
@@ -40,6 +40,8 @@ function hugMocha(huggee) {
       });
     }
   };
+  hugged.cb = hugged;
+  return hugged;
 }
 
 module.exports = (huggee) => {

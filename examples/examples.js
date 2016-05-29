@@ -1,6 +1,6 @@
 'use strict';
 const libName = process.env['HUGS_LIB'];
-const expectedLibs = ['mocha', 'tap'];
+const expectedLibs = ['ava', 'mocha', 'tap'];
 
 if (expectedLibs.indexOf(libName) === -1) {
   // eslint-disable-next-line
@@ -25,11 +25,11 @@ const oUTBeta = { method: () => { } };
 
 test.beforeEach((done) => {
   spy(oUTAlpha, 'method');
-  done();
+  done && done();
 });
 
 test.afterEach((done) => {
-  done();
+  done && done();
 });
 
 test(
@@ -60,7 +60,7 @@ test(
   }
 );
 
-test(
+test.cb(
   'async',
   (done) => {
     const val = true;

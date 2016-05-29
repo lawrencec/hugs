@@ -6,10 +6,10 @@ module.exports = (test) => {
   return (done) => {
     const val = true;
 
-    ((result) => {
-      assert.equal(result, true);
+    setTimeout(() => {
+      assert.equal(val, true);
 
       done();
-    }).apply(null, [val]);
+    }, 50);
   };
 };
