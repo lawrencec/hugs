@@ -100,7 +100,7 @@ More examples can be seen in the `/examples` directory
 Different frameworks have slightly different mechanisms for ending tests with asynchronous code.
 
 | Type    | Lifecycle | async (callback)                    | async (promise)                            |
-|-        |-          |-                                    |-:                                          |
+|---------|-----------|-------------------------------------|--------------------------------------------|
 | Mocha   | signature | `test(’title’, (done) => {});`      | `test(‘title’, () => {});`                 |
 | Mocha   | end       | `done();`                           | `return promise;`                          |
 | Tap     | signature | `test(’title’, (t) => {});`         | `test(‘title’, (t) => {});`                |
