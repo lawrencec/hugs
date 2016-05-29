@@ -75,7 +75,7 @@
   "eslintConfig": {
     "extends": "iplayer-es6",
     "rules": {
-      "complexity": ["error", { "max": 2 }]
+      "complexity": ["error", 2]
     }
   },
   "nyc": {
