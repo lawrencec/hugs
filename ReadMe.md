@@ -1,4 +1,4 @@
-# Hugs [![Build Status](https://drone.io/github.com/lawrencec/hugs/status.png)](https://drone.io/github.com/lawrencec/hugs/latest) [![Code Climate](https://codeclimate.com/github/lawrencec/hugs/badges/gpa.svg)](https://codeclimate.com/github/lawrencec/hugs) [![Test Coverage](https://codeclimate.com/github/lawrencec/hugs/badges/coverage.svg)](https://codeclimate.com/github/lawrencec/hugs/coverage)
+# Hugs [![Build Status](https://travis-ci.org/lawrencec/hugs.svg?branch=master)](https://travis-ci.org/lawrencec/hugs) [![Code Climate](https://codeclimate.com/github/lawrencec/hugs/badges/gpa.svg)](https://codeclimate.com/github/lawrencec/hugs) [![Test Coverage](https://codeclimate.com/github/lawrencec/hugs/badges/coverage.svg)](https://codeclimate.com/github/lawrencec/hugs/coverage)
 
  ![Boy hugging piñata](https://i.giphy.com/SKElG8dQWhPdS.gif)
 
