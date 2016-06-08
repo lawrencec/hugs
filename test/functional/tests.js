@@ -25,5 +25,5 @@ test('spy', spyTest(test));
 test('stub', stubTest(test));
 test('mock', mockTest(test));
 test('promise', promiseTest(test));
-test('async', asyncTest(test));
+test.cb('async', asyncTest(test));
 

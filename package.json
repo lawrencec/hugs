@@ -23,6 +23,7 @@
     "sinon": "^1.17.4"
   },
   "devDependencies": {
+    "ava": "^0.15.1",
     "codeclimate-test-reporter": "^0.3.1",
     "eslint": "^2.10.2",
     "eslint-config-iplayer-es6": "^2.0.0",
@@ -44,12 +45,13 @@
     "help": "ls-scripts",
     "reports:coverage": "open target/coverage/index.html",
     "test": "npm run test:functional; npm run test:unit",
-    "test:functional": "npm run test:functional:mocha; npm run test:functional:tap;",
+    "test:functional": "npm run test:functional:ava; npm run test:functional:mocha; npm run test:functional:tap;",
     "test:functional:mocha": "HUGS_LIB=mocha _mocha --async-only --ui tdd 'test/functional/tests.js'",
     "test:functional:tap": "HUGS_LIB=tap tap './test/functional/tests.js'",
+    "test:functional:ava": "HUGS_LIB=ava ava --verbose --serial './test/functional/tests.js'",
     "test:report": "nyc report --reporter=html",
     "test:unit:coverage": "nyc --reporter=lcov --reporter=text npm run test:unit; npm run test:report",
-    "test:unit:coverage:cc": "npm run test:unit:coverage; codeclimate-test-reporter < target/lcov.info",
+    "test:unit:coverage:cc": "npm run test:unit:coverage; codeclimate-test-reporter < target/coverage/lcov.info",
     "test:unit": "_mocha --ui tdd './test/unit/**/*.js'"
   },
   "config": {
@@ -67,6 +69,7 @@
       "test:functional": "Run all functional tests",
       "test:functional:mocha": "Run functional tests using mocha as the test runner",
       "test:functional:tap": "Run functional tests using tap as the test runner",
+      "test:functional:ava": "Run functional tests using ava as the test runner",
       "test:report": "Build coverage report (html)",
       "test:unit:coverage": "Run unit tests with code coverage",
       "test:unit": "Run all unit tests"
@@ -75,12 +78,19 @@
   "eslintConfig": {
     "extends": "iplayer-es6",
     "rules": {
-      "complexity": ["error", 2]
+      "complexity": [
+        "error",
+        3
+      ]
     }
   },
   "nyc": {
     "lines": 80,
     "check-coverage": true,
-    "report-dir": "./target/coverage"
+    "report-dir": "./target/coverage",
+    "exclude": [
+      "src/targets/ava.js",
+      "test/**/*.js"
+    ]
   }
 }

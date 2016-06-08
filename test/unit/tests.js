@@ -11,9 +11,17 @@ const suite = mocha.suite;
 const setup = mocha.setup;
 const teardown = mocha.teardown;
 
+const ava = {
+  test: () => {},
+  cb: () => {},
+  beforeEach: () => {},
+  afterEach: () => {}
+};
+ava.afterEach.always = () => {};
 let sandbox;
 
 sinon.assert.expose(assert, { prefix: '' });
+
 unroll.use(test);
 
 setup(() => {
@@ -27,12 +35,38 @@ teardown(() => {
 suite('Hugs', () => {
   suite('api', () => {
     test(
+        'when hugged lib is "ava"',
+        () => {
+          sandbox.stub(ava);
+          const huggedLib = hugs(ava);
+          const huggedInterface = Object.keys(huggedLib).sort();
+
+          assert.equal(huggedInterface.length, 9);
+
+          assert.deepEqual(
+              huggedInterface,
+              [
+                'afterEach',
+                'assert',
+                'beforeEach',
+                'cb',
+                'chai',
+                'mock',
+                'only',
+                'spy',
+                'stub'
+              ]
+          );
+        }
+    );
+
+    test(
       'when hugged lib is "mocha"',
       () => {
         const huggedLib = hugs(mocha);
         const huggedInterface = Object.keys(huggedLib).sort();
 
-        assert.equal(huggedInterface.length, 8);
+        assert.equal(huggedInterface.length, 9);
 
         assert.deepEqual(
           huggedInterface,
@@ -40,6 +74,7 @@ suite('Hugs', () => {
             'afterEach',
             'assert',
             'beforeEach',
+            'cb',
             'chai',
             'mock',
             'only',
@@ -56,7 +91,7 @@ suite('Hugs', () => {
         const huggedLib = hugs(tap);
         const huggedInterface = Object.keys(huggedLib).sort();
 
-        assert.equal(huggedInterface.length, 9);
+        assert.equal(huggedInterface.length, 10);
 
         assert.deepEqual(
           huggedInterface,
@@ -66,6 +101,7 @@ suite('Hugs', () => {
             'afterEach',
             'assert',
             'beforeEach',
+            'cb',
             'chai',
             'mock',
             'spy',
@@ -81,14 +117,25 @@ suite('Hugs', () => {
     let testFn;
 
     beforeEach((done) => {
-      sandbox.stub(mocha, 'setup').yields();
-      sandbox.stub(mocha, 'test');
-      huggedLib = hugs(mocha);
       testFn = sandbox.spy();
       done();
     });
 
+    suite.skip('AVA', () => {
+      beforeEach((done) => {
+        huggedLib = hugs(ava);
+        done();
+      });
+    });
+
     suite('Mocha', () => {
+      beforeEach((done) => {
+        sandbox.stub(mocha, 'setup').yields();
+        sandbox.stub(mocha, 'test');
+        huggedLib = hugs(mocha);
+        done();
+      });
+
       test('successful test', () => {
         huggedLib('testName', testFn);
 

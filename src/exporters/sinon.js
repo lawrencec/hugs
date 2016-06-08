@@ -20,8 +20,9 @@ function applySandboxMethod(method, sandbox) {
 
 function restoreSandbox(sandbox) {
   return (done) => {
+
     sandbox && sandbox.restore();
-    done && done();
+    done && typeof done === 'function' && done();
   };
 }
 

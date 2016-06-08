@@ -17,10 +17,7 @@ Currently, Hugs supports the following test frameworks:
 
 - [node-tap](http://www.node-tap.org/)
 - [mocha](https://mochajs.org/)
-
-Soon, perhaps, with the following too
-
-- [AVA](https://github.com/avajs/ava)
+- [AVA](https://github.com/avajs/ava) (currently serial mode only)
 
 Sinon spies, stubs and mocks are created using sinon's sandbox before every test (and torn down afterwards).
 
@@ -99,17 +96,22 @@ More examples can be seen in the `/examples` directory
 
 Different frameworks have slightly different mechanisms for ending tests with asynchronous code.
 
+In order to have a test be written in the same way regardless of the test runner used, the `done()` method ends the test correctly depending on the given runner, calling either `t.end()`, `done()` or returning a promise.
+For mocha users, this means that all tests need to be written as if it's an async test i.e `done` function is a parameter to the test. The `--async-only` flag for mocha cli is useful here.
+AVA uses a different function altogether for async tests called `test.cb`. This meant adding a `cb()` function to the hugs interface which when using mocha or tap is actually the same method as their respective `test()` method.
+ 
+
 | Type    | Lifecycle | async (callback)                    | async (promise)                            |
 |---------|-----------|-------------------------------------|--------------------------------------------|
+| AVA     | signature | `test.cb(’title’, (t) => {});`      | `test(‘title’, () => {});`                 |
+| AVA     | end       | `t.end();`                          | `return promise;`                          |
 | Mocha   | signature | `test(’title’, (done) => {});`      | `test(‘title’, () => {});`                 |
 | Mocha   | end       | `done();`                           | `return promise;`                          |
 | Tap     | signature | `test(’title’, (t) => {});`         | `test(‘title’, (t) => {});`                |
 | Tap     | end       | `t.end();`                          | `return promise;`                          |
-| Hugs    | signature | `test('title', (done) => {});`      | `test('title', () => {});`                 |
+| Hugs    | signature | `test.cb('title', (done) => {});`      | `test('title', () => {});`                 |
 | Hugs    | end       | `done();`                           | `return promise;`                          |
 
-In order to have a test be written in the same way regardless of the test runner used, the `done()` method ends the test correctly depending on the given runner, calling either `t.end()`, `done()` or returning a promise.
-For mocha users, this means that all tests need to be written as if it's an async test i.e `done` function is a parameter to the test. The `--async-only` flag for mocha cli is useful here.
 
 ## API
 
