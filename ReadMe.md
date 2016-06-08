@@ -141,7 +141,7 @@ npm run test:functional
 ```
 
 ## Some things you need to know about hugs
-- Nested hugs (tests) are not currently supported which isn't necessarily a bad thing. Tests files can become unwieldly with deeply nested tests.
+- Nested hugs (tests) are not currently supported which isn't necessarily a bad thing. Tests files can [become unwieldly with deeply nested tests](https://www.briefs.fm/3-minutes-with-kent/27).
 - hugs are a superpower!
 
 
