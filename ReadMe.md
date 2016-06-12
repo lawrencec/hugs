@@ -1,4 +1,4 @@
-# Hugs [![Build Status](https://travis-ci.org/lawrencec/hugs.svg?branch=master)](https://travis-ci.org/lawrencec/hugs) [![Code Climate](https://codeclimate.com/github/lawrencec/hugs/badges/gpa.svg)](https://codeclimate.com/github/lawrencec/hugs) [![Test Coverage](https://codeclimate.com/github/lawrencec/hugs/badges/coverage.svg)](https://codeclimate.com/github/lawrencec/hugs/coverage)
+# Hugs [![Build Status](https://travis-ci.org/lawrencec/hugs.svg?branch=master)](https://travis-ci.org/lawrencec/hugs) [![Code Climate](https://img.shields.io/codeclimate/github/lawrencec/hugs.svg)](https://codeclimate.com/github/lawrencec/hugs) [![Test Coverage](https://img.shields.io/codeclimate/coverage/github/lawrencec/hugs.svg)](https://codeclimate.com/github/lawrencec/hugs/coverage) [![Latest Release](https://img.shields.io/github/release/lawrencec/hugs.svg)](https://github.com/lawrencec/hugs/releases)
 
  ![Boy hugging piñata](https://i.giphy.com/SKElG8dQWhPdS.gif)
 
