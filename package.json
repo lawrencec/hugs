@@ -59,8 +59,6 @@
       "dep-check": "Check outdated and unused dependecies",
       "dep-check-i": "Interactively check outdated and unused dependecies",
       "examples": "Run examples",
-      "examples:mocha": "Run mocha example",
-      "examples:tap": "Run tap example",
       "lint": "Lintage",
       "lint:fix": "Automatically fix any lint issues",
       "help": "List available npm run commands",
@@ -72,6 +70,7 @@
       "test:functional:ava": "Run functional tests using ava as the test runner",
       "test:report": "Build coverage report (html)",
       "test:unit:coverage": "Run unit tests with code coverage",
+      "test:unit:coverage:cc": "Run unit tests with code coverage and send to code climate",
       "test:unit": "Run all unit tests"
     }
   },
