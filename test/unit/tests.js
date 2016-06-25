@@ -1,45 +1,46 @@
 'use strict';
 
-const hugs = require('../../src/index');
-const mocha = require('mocha');
-const tap = require('tap');
-const sinon = require('sinon');
-const unroll = require('unroll');
-const assert = require('assert');
-const test = mocha.test;
-const suite = mocha.suite;
-const setup = mocha.setup;
-const teardown = mocha.teardown;
+var hugs = require('../../src/index');
+var mocha = require('mocha');
+var tap = require('tap');
+var sinon = require('sinon');
+var unroll = require('unroll');
+var assert = require('assert');
+var test = mocha.test;
+var suite = mocha.suite;
+var setup = mocha.setup;
+var teardown = mocha.teardown;
 
-const ava = {
-  test: () => {},
-  cb: () => {},
-  beforeEach: () => {},
-  afterEach: () => {}
+var ava = {
+  test: function () {},
+  cb: function () {},
+  beforeEach: function () {},
+  afterEach: function () {}
 };
-ava.afterEach.always = () => {};
-let sandbox;
+ava.afterEach.always = function () {};
+
+var sandbox;
 
 sinon.assert.expose(assert, { prefix: '' });
 
 unroll.use(test);
 
-setup(() => {
+setup(function () {
   sandbox = sinon.sandbox.create();
 });
 
-teardown(() => {
+teardown(function () {
   sandbox.restore();
 });
 
-suite('Hugs', () => {
-  suite('api', () => {
+suite('Hugs', function () {
+  suite('api', function () {
     test(
         'when hugged lib is "ava"',
-        () => {
+        function () {
           sandbox.stub(ava);
-          const huggedLib = hugs(ava);
-          const huggedInterface = Object.keys(huggedLib).sort();
+          var huggedLib = hugs(ava);
+          var huggedInterface = Object.keys(huggedLib).sort();
 
           assert.equal(huggedInterface.length, 9);
 
@@ -62,9 +63,9 @@ suite('Hugs', () => {
 
     test(
       'when hugged lib is "mocha"',
-      () => {
-        const huggedLib = hugs(mocha);
-        const huggedInterface = Object.keys(huggedLib).sort();
+      function () {
+        var huggedLib = hugs(mocha);
+        var huggedInterface = Object.keys(huggedLib).sort();
 
         assert.equal(huggedInterface.length, 9);
 
@@ -87,9 +88,9 @@ suite('Hugs', () => {
 
     test(
       'when hugged lib is "tap"',
-      () => {
-        const huggedLib = hugs(tap);
-        const huggedInterface = Object.keys(huggedLib).sort();
+      function () {
+        var huggedLib = hugs(tap);
+        var huggedInterface = Object.keys(huggedLib).sort();
 
         assert.equal(huggedInterface.length, 10);
 
@@ -112,31 +113,31 @@ suite('Hugs', () => {
     );
   });
 
-  suite('test execution', () => {
-    let huggedLib;
-    let testFn;
+  suite('test execution', function () {
+    var huggedLib;
+    var testFn;
 
-    beforeEach((done) => {
+    beforeEach(function (done) {
       testFn = sandbox.spy();
       done();
     });
 
-    suite.skip('AVA', () => {
-      beforeEach((done) => {
+    suite.skip('AVA', function () {
+      beforeEach(function (done) {
         huggedLib = hugs(ava);
         done();
       });
     });
 
-    suite('Mocha', () => {
-      beforeEach((done) => {
+    suite('Mocha', function () {
+      beforeEach(function (done) {
         sandbox.stub(mocha, 'setup').yields();
         sandbox.stub(mocha, 'test');
         huggedLib = hugs(mocha);
         done();
       });
 
-      test('successful test', () => {
+      test('successful test', function () {
         huggedLib('testName', testFn);
 
         assert.callCount(mocha.test, 1);
@@ -144,7 +145,7 @@ suite('Hugs', () => {
         assert.callCount(testFn, 1);
       });
 
-      test('unsuccessful test', () => {
+      test('unsuccessful test', function () {
         huggedLib('testName', testFn);
 
         assert.callCount(mocha.test, 1);
@@ -152,22 +153,22 @@ suite('Hugs', () => {
         assert.callCount(testFn, 1);
       });
 
-      suite('async', () => {
-        let doneFn;
-        let testObject;
+      suite('async', function () {
+        var doneFn;
+        var testObject;
 
-        beforeEach((done) => {
+        beforeEach(function (done) {
           doneFn = sandbox.spy();
           mocha.test.yields(doneFn);
           huggedLib = hugs(mocha);
           testObject = {
             // eslint-disable-next-line
-            method: (done) => {}
+            method: function (done) {}
           };
           done();
         });
 
-        test('successful test', () => {
+        test('successful test', function () {
           testFn = sandbox.stub(testObject, 'method').yields(undefined);
 
           huggedLib('testName', testFn);
@@ -177,8 +178,8 @@ suite('Hugs', () => {
           assert.calledWith(doneFn, undefined);
         });
 
-        test('unsuccessful test', () => {
-          const err = Error('an error');
+        test('unsuccessful test', function () {
+          var err = Error('an error');
 
           testFn = sandbox.stub(testObject, 'method').yields(err);
 
@@ -190,14 +191,14 @@ suite('Hugs', () => {
         });
       });
 
-      suite('lifecycle', () => {
-        let lifeCycleFn;
+      suite('lifecycle', function () {
+        var lifeCycleFn;
 
-        beforeEach(() => {
+        beforeEach(function () {
           lifeCycleFn = sandbox.stub();
         });
 
-        test('beforeEach', () => {
+        test('beforeEach', function () {
           huggedLib.beforeEach(lifeCycleFn);
 
           huggedLib('testName', testFn);
@@ -209,7 +210,7 @@ suite('Hugs', () => {
           assert.callCount(lifeCycleFn, 1);
         });
 
-        test('afterEach', () => {
+        test('afterEach', function () {
           huggedLib('testName', testFn);
 
           assert.callCount(mocha.test, 1);
@@ -219,21 +220,21 @@ suite('Hugs', () => {
       });
     });
 
-    suite('Tap', () => {
-      let huggedLib;
-      let testFn;
-      let tapTest;
-      let subTest;
-      let subSubTest;
-      let lifeCycleDoneFn;
+    suite('Tap', function () {
+      var huggedLib;
+      var testFn;
+      var tapTest;
+      var subTest;
+      var subSubTest;
+      var lifeCycleDoneFn;
 
-      beforeEach(() => {
+      beforeEach(function () {
         tapTest = sandbox.stub(tap, 'test');
         huggedLib = hugs(tap);
         testFn = sandbox.stub();
         lifeCycleDoneFn = sandbox.spy();
         subSubTest = {
-          end: sandbox.spy(()=> {})
+          end: sandbox.spy(function () {})
         };
 
         subTest = {
@@ -245,8 +246,8 @@ suite('Hugs', () => {
         tapTest.onFirstCall().yields(subTest);
       });
 
-      test('successful test', () => {
-        const err = undefined;
+      test('successful test', function () {
+        var err = undefined;
 
         testFn.yields(err);
 
@@ -259,8 +260,8 @@ suite('Hugs', () => {
         assert.calledWith(subSubTest.end, err);
       });
 
-      test('unsuccessful test', () => {
-        const err = Error('an error');
+      test('unsuccessful test', function () {
+        var err = Error('an error');
 
         testFn.yields(err);
 
@@ -273,16 +274,16 @@ suite('Hugs', () => {
         assert.calledWith(subSubTest.end, err);
       });
 
-      suite('lifecycle', () => {
-        let lifeCycleFn;
-        const err = undefined;
+      suite('lifecycle', function () {
+        var lifeCycleFn;
+        var err = undefined;
 
-        beforeEach((done) => {
+        beforeEach(function (done) {
           lifeCycleFn = sandbox.stub().yields();
           done();
         });
 
-        test('beforeEach', () => {
+        test('beforeEach', function () {
           testFn.yields(err);
 
           subTest.beforeEach.yields(lifeCycleDoneFn);
@@ -300,7 +301,7 @@ suite('Hugs', () => {
           assert.callCount(lifeCycleDoneFn, 1);
         });
 
-        test('afterEach', () => {
+        test('afterEach', function () {
           testFn.yields(err);
 
           subTest.afterEach.yields(lifeCycleDoneFn);

@@ -1,32 +1,49 @@
+/*eslint-env browser, amd */
 'use strict';
 
-const sinon = require('sinon');
+(function (root, factory) {
+  /* istanbul ignore next */
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(
+        [
+          'sinon'
+        ],
+        factory
+    );
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = factory(
+      require('sinon')
+    );
+  } else {
+    root.sinonExporter = factory(root.sinon);
+  }
+}(this, function (sinon) {
+  function createSandbox(hugged) {
+    var sandbox = sinon.sandbox.create();
 
-function createSandbox(hugged) {
-  const sandbox = sinon.sandbox.create();
+    ['mock', 'spy', 'stub'].forEach(function (method) {
+      hugged[method] = applySandboxMethod(method, sandbox);
+    });
 
-  ['mock', 'spy', 'stub'].forEach((method) => {
-    hugged[method] = applySandboxMethod(method, sandbox);
-  });
+    return sandbox;
+  }
 
-  return sandbox;
-}
+  function applySandboxMethod(method, sandbox) {
+    return function () {
+      return sandbox[method].apply(sandbox, arguments);
+    };
+  }
 
-function applySandboxMethod(method, sandbox) {
-  return function () {
-    return sandbox[method].apply(sandbox, arguments);
+  function restoreSandbox(sandbox) {
+    return function (done) {
+      sandbox && sandbox.restore();
+      done && typeof done === 'function' && done();
+    };
+  }
+
+  return {
+    createSandbox: createSandbox,
+    restoreSandbox: restoreSandbox
   };
-}
-
-function restoreSandbox(sandbox) {
-  return (done) => {
-
-    sandbox && sandbox.restore();
-    done && typeof done === 'function' && done();
-  };
-}
-
-module.exports = {
-  createSandbox: createSandbox,
-  restoreSandbox: restoreSandbox
-};
+}));

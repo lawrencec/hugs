@@ -1,12 +1,12 @@
 'use strict';
 
-module.exports = (test) => {
-  const assert = test.assert;
-  const stub = test.stub;
+module.exports = function (test) {
+  var assert = test.assert;
+  var stub = test.stub;
 
-  return (done) => {
-    const oUT = {
-      method: () => {}
+  return function (done) {
+    var oUT = {
+      method: function () {}
     };
 
     stub(oUT, 'method');

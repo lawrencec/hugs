@@ -1,24 +1,23 @@
 'use strict';
-const libName = process.env['HUGS_LIB'];
-const expectedLibs = ['ava', 'mocha', 'tap'];
+var libName = process.env['HUGS_LIB'];
+var expectedLibs = ['ava', 'mocha', 'tap'];
 
 if (expectedLibs.indexOf(libName) === -1) {
   // eslint-disable-next-line
-  console.log(`"${libName}" not found in expected list of test libraries:  ${expectedLibs.join(', ')}`);
+  console.log(libName + ' not found in expected list of test libraries:  ' + expectedLibs.join(', '));
   process.exit(0);
 }
 
-const hugs = require('../../src/index');
-const apiTests = require('./tests/api');
-const assertTests = require('./tests/asserts');
-const promiseTest = require('./tests/promise');
-const asyncTest = require('./tests/async');
-const mockTest = require('./tests/mock');
-const spyTest = require('./tests/spy');
-const stubTest = require('./tests/stub');
+var hugs = require('../../src/index');
+var apiTests = require('./tests/api');
+var assertTests = require('./tests/asserts');
+var promiseTest = require('./tests/promise');
+var asyncTest = require('./tests/async');
+var mockTest = require('./tests/mock');
+var spyTest = require('./tests/spy');
+var stubTest = require('./tests/stub');
 
-const test = hugs(require(libName));
-
+var test = hugs(require(libName));
 test('asserts', assertTests(test));
 test('api', apiTests(test));
 test('spy', spyTest(test));

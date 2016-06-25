@@ -1,40 +1,40 @@
 'use strict';
-const libName = process.env['HUGS_LIB'];
-const expectedLibs = ['ava', 'mocha', 'tap'];
+var libName = process.env['HUGS_LIB'];
+var expectedLibs = ['ava', 'mocha', 'tap'];
 
 if (expectedLibs.indexOf(libName) === -1) {
   // eslint-disable-next-line
-  console.log(`"${libName}" not found in expected list of test libraries:  ${expectedLibs.join(', ')}`);
+  console.log(libName + ' not found in expected list of test libraries: ' + expectedLibs.join(', '));
   process.exit(0);
 }
 
-const hugs = require('../src/index');
-const testLib = require(libName);
-const chaiAsPromised = require('chai-as-promised');
-const test = hugs(testLib);
-const assert = test.assert;
-const mock = test.mock;
-const spy = test.spy;
-const stub = test.stub;
-const chai = test.chai;
+var hugs = require('../src/index');
+var testLib = require(libName);
+var chaiAsPromised = require('chai-as-promised');
+var test = hugs(testLib);
+var assert = test.assert;
+var mock = test.mock;
+var spy = test.spy;
+var stub = test.stub;
+var chai = test.chai;
 
 chai.use(chaiAsPromised);
 
-const oUTAlpha = { method: () => { } };
-const oUTBeta = { method: () => { } };
+var oUTAlpha = { method: function () {} };
+var oUTBeta = { method: function () {} };
 
-test.beforeEach((done) => {
+test.beforeEach(function (done) {
   spy(oUTAlpha, 'method');
   done && done();
 });
 
-test.afterEach((done) => {
+test.afterEach(function (done) {
   done && done();
 });
 
 test(
   'assertion',
-  (done) => {
+  function (done) {
     assert.callCount(oUTAlpha.method, 0);
     assert.equal(Object.keys(oUTAlpha).length, 1, 'number of methods do not match');
     done();
@@ -43,9 +43,9 @@ test(
 
 test(
   'promise',
-  () => {
+  function () {
     return Promise.resolve(2 + 2)
-        .then((result) => {
+        .then(function (result) {
           assert.equal(result, 4);
         });
   }
@@ -53,8 +53,8 @@ test(
 
 test(
   'promise with chai as promised',
-  () => {
-    const promise = Promise.resolve(2 + 2);
+  function () {
+    var promise = Promise.resolve(2 + 2);
 
     return assert.eventually.equal(promise, 4);
   }
@@ -62,10 +62,10 @@ test(
 
 test.cb(
   'async',
-  (done) => {
-    const val = true;
+  function (done) {
+    var val = true;
 
-    setTimeout(() => {
+    setTimeout(function () {
       assert.equal(val, true);
       done();
     }, 50);
@@ -74,7 +74,7 @@ test.cb(
 
 test(
   'spy',
-  (done) => {
+  function (done) {
     oUTAlpha.method(1, 2);
 
     assert.callCount(oUTAlpha.method, 1, 'callCount does not match');
@@ -86,8 +86,8 @@ test(
 
 test(
   'mock',
-  (done) => {
-    const mocked = mock(oUTBeta);
+  function (done) {
+    var mocked = mock(oUTBeta);
 
     mocked.expects('method').never();
     mocked.verify();
@@ -98,7 +98,7 @@ test(
 
 test(
   'stub',
-  (done) => {
+  function (done) {
     stub(oUTBeta, 'method');
     assert.typeOf(oUTBeta.method.throws, 'function', 'expected "throws" to be a function');
     done();

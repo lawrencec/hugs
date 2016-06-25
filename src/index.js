@@ -1,21 +1,38 @@
+/*eslint-env browser, amd */
 'use strict';
 
-const hugMocha = require('./targets/mocha');
-const hugTap = require('./targets/tap');
-const hugAva = require('./targets/ava');
-
-function hugs(huggee) {
-  let hugged;
-
-  if (huggee.setup) {
-    hugged = hugMocha(huggee);
-  } else if (huggee.cb) {
-    hugged = hugAva(huggee);
+(function (root, factory) {
+  /* istanbul ignore next */
+  if (typeof define === 'function' && define.amd) {
+    define(
+      [
+        './targets/mocha',
+        './targets/tap',
+        './targets/ava'
+      ],
+      factory
+    );
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = factory(
+      require('./targets/mocha'),
+      require('./targets/tap'),
+      require('./targets/ava')
+    );
   } else {
-    hugged = hugTap(huggee);
+    root.hugs = factory(hugMocha);
   }
+}(this, function (hugMocha, hugTap, hugAva) {
+  return function hugs(huggee) {
+    var hugged;
 
-  return hugged;
-}
+    if (huggee.setup) {
+      hugged = hugMocha(huggee);
+    } else if (huggee.cb) {
+      hugged = hugAva(huggee);
+    } else {
+      hugged = hugTap(huggee);
+    }
 
-module.exports = hugs;
+    return hugged;
+  }
+}));
