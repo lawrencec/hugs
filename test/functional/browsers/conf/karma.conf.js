@@ -1,4 +1,4 @@
-'use strict';
+var path = require('path');
 
 module.exports = function (config) {
   var libName = process.env['HUGS_TEST_LIB'] || 'unspecified test lib';
@@ -10,24 +10,26 @@ module.exports = function (config) {
   } else {
     config.set({
       // base path, that will be used to resolve files and exclude
-      basePath: '../../',
+      basePath: '../../../../',
 
       frameworks: [libName, 'chai-sinon', 'chai-as-promised', 'chai'],
 
       // list of files / patterns to load in the browser
       files: [
-        'examples/node_modules/babel-polyfill/dist/polyfill.js',
+        'node_modules/babel-polyfill/dist/polyfill.js',
         'src/exporters/chai.js',
         'src/exporters/sinon.js',
         'src/targets/' + libName + '.js',
         'src/index.js',
-        'examples/browser.js'
+        './test/functional/browsers/tests.js'
       ],
 
       // list of files to exclude
       exclude: [],
 
-      preprocessors: {},
+      preprocessors: {
+        'lib/*.js': ['coverage']
+      },
 
       // use dots reporter, as travis terminal does not support escaping sequences
       // possible values: 'dots', 'progress'
@@ -35,13 +37,13 @@ module.exports = function (config) {
       reporters: ['spec', 'junit', 'coverage'],
 
       junitReporter: {
-        outputDir: './target/browsers/',
+        outputDir: ['./target/browsers',libName,''].join(path.sep),
         outputFile: 'test-results.xml'
       },
 
       coverageReporter: {
         type: 'html',
-        dir: 'target/browsers/coverage/'
+        dir: ['./target/browsers', libName, 'coverage'].join(path.sep)
       },
 
       // web server port
