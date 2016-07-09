@@ -35,6 +35,20 @@ suite('Sinon exporter', function () {
     assert.equal(typeof target.mock, 'function');
   });
 
+  test('exportMatchers', function () {
+    var target = {};
+    sinonExporter.exportMatchers(target);
+
+    assert.equal(typeof target.match, 'function');
+  });
+
+  test('exportCreateStubInstance', function () {
+    var target = {};
+    sinonExporter.exportCreateStubInstance(target);
+
+    assert.equal(typeof target.createStubInstance, 'function');
+  });
+
   suite('restoreSandbox', function () {
     test('with a sandbox', function () {
       var target = {};

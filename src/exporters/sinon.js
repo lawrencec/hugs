@@ -42,8 +42,18 @@
     };
   }
 
+  function exportMatchers(hugged) {
+    hugged.match = sinon.match;
+  }
+
+  function exportCreateStubInstance(hugged) {
+    hugged.createStubInstance = sinon.createStubInstance;
+  }
+
   return {
     createSandbox: createSandbox,
-    restoreSandbox: restoreSandbox
+    restoreSandbox: restoreSandbox,
+    exportMatchers: exportMatchers,
+    exportCreateStubInstance: exportCreateStubInstance
   };
 }));

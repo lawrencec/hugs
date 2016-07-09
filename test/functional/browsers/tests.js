@@ -28,6 +28,18 @@ test.afterEach(function (done) {
   done && done();
 });
 
+test('api',
+    function () {
+      assert.typeOf(test.assert, 'function');
+      assert.typeOf(test.chai, 'object');
+      assert.typeOf(test.mock, 'function');
+      assert.typeOf(test.spy, 'function');
+      assert.typeOf(test.stub, 'function');
+      assert.typeOf(test.match, 'function');
+      assert.typeOf(test.createStubInstance, 'function');
+    }
+);
+
 test(
     'assertion',
     function (done) {

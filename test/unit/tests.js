@@ -42,7 +42,7 @@ suite('Hugs', function () {
           var huggedLib = hugs(ava);
           var huggedInterface = Object.keys(huggedLib).sort();
 
-          assert.equal(huggedInterface.length, 9);
+          assert.equal(huggedInterface.length, 11);
 
           assert.deepEqual(
               huggedInterface,
@@ -52,6 +52,8 @@ suite('Hugs', function () {
                 'beforeEach',
                 'cb',
                 'chai',
+                'createStubInstance',
+                'match',
                 'mock',
                 'only',
                 'spy',
@@ -67,7 +69,7 @@ suite('Hugs', function () {
         var huggedLib = hugs(mocha);
         var huggedInterface = Object.keys(huggedLib).sort();
 
-        assert.equal(huggedInterface.length, 9);
+        assert.equal(huggedInterface.length, 11);
 
         assert.deepEqual(
           huggedInterface,
@@ -77,6 +79,8 @@ suite('Hugs', function () {
             'beforeEach',
             'cb',
             'chai',
+            'createStubInstance',
+            'match',
             'mock',
             'only',
             'spy',
@@ -92,7 +96,7 @@ suite('Hugs', function () {
         var huggedLib = hugs(tap);
         var huggedInterface = Object.keys(huggedLib).sort();
 
-        assert.equal(huggedInterface.length, 10);
+        assert.equal(huggedInterface.length, 12);
 
         assert.deepEqual(
           huggedInterface,
@@ -104,6 +108,8 @@ suite('Hugs', function () {
             'beforeEach',
             'cb',
             'chai',
+            'createStubInstance',
+            'match',
             'mock',
             'spy',
             'stub'
@@ -320,5 +326,57 @@ suite('Hugs', function () {
         });
       });
     });
+  });
+
+  suite('matchers', function () {
+    test(
+        'when hugged lib is "ava"',
+        function () {
+          var huggedLib = hugs(ava);
+          var spied = sandbox.spy();
+
+          spied('foo');
+
+          assert.calledWith(spied, huggedLib.match.string);
+        }
+    );
+
+    test(
+        'when hugged lib is "mocha"',
+        function () {
+          var huggedLib = hugs(mocha);
+          var spied = sandbox.spy();
+
+          spied('foo');
+
+          assert.calledWith(spied, huggedLib.match.string);
+        }
+    );
+
+    test(
+        'when hugged lib is "tap"',
+        function () {
+          var huggedLib = hugs(tap);
+          var spied = sandbox.spy();
+
+          spied('foo');
+
+          assert.calledWith(spied, huggedLib.match.string);
+        }
+    );
+  });
+
+  suite('incorrect hugging attempt', function () {
+    test(
+        'when hugged lib not a object or function',
+        function () {
+          assert.throws(
+              function () {
+                hugs('tapas');
+              },
+              /huggee is not valid target. Expected a function or an object/
+          );
+        }
+    )
   });
 });
