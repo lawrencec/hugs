@@ -1,21 +1,54 @@
+/*eslint-env browser, amd */
 'use strict';
 
-const hugMocha = require('./targets/mocha');
-const hugTap = require('./targets/tap');
-const hugAva = require('./targets/ava');
+function vanillaFactory(hugMocha, hugJasmine) {
+  return function hugs(huggee) {
+    var hugged;
 
-function hugs(huggee) {
-  let hugged;
+    if (huggee.setup) {
+      hugged = hugMocha(huggee);
+    } else {
+      hugged = hugJasmine(huggee);
+    }
 
-  if (huggee.setup) {
-    hugged = hugMocha(huggee);
-  } else if (huggee.cb) {
-    hugged = hugAva(huggee);
-  } else {
-    hugged = hugTap(huggee);
+    return hugged;
   }
-
-  return hugged;
 }
 
-module.exports = hugs;
+function neopolitanFactory(hugMocha, hugTap, hugAva) {
+  return function hugs(huggee) {
+    var hugged;
+
+    if (huggee.setup) {
+      hugged = hugMocha(huggee);
+    } else if (huggee.cb) {
+      hugged = hugAva(huggee);
+    } else {
+      hugged = hugTap(huggee);
+    }
+
+    return hugged;
+  }
+}
+
+(function (root, factory) {
+  /* istanbul ignore next */
+  if (typeof define === 'function' && define.amd) {
+    define(
+      [
+        './targets/mocha',
+        './targets/tap',
+        './targets/ava'
+      ],
+      factory
+    );
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = factory(
+      require('./targets/mocha'),
+      require('./targets/tap'),
+      require('./targets/ava')
+    );
+  } else {
+    root.hugs = vanillaFactory(root.hugMocha, root.hugJasmine);
+  }
+}(this, neopolitanFactory));

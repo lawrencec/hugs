@@ -17,7 +17,7 @@
       require('../exporters/chai')
     );
   } else {
-    root.hugMocha = factory(root.sinonExporter, root.chaiExporter, root);
+    root.hugJasmine = factory(root.sinonExporter, root.chaiExporter, root);
   }
 }(this, function (sinonExporter, chaiExporter, root) {
   function exportSandbox(hugged) {
@@ -41,7 +41,7 @@
     hugged.afterEach(sinonExporter.restoreSandbox(sandbox));
   }
 
-  function mochaHug(huggee) {
+  function jasmineHug(huggee) {
     var hugged = function (title, testFunc) {
       var isAsync = testFunc.length !== 0;
       var test = huggee.test;
@@ -62,13 +62,13 @@
   }
 
   function resolveTargetFromEnv(window, huggee) {
-    return (typeof window === 'undefined') ? huggee : {test: window.test, setup: window.setup, teardown: window.teardown}
+    return (typeof window === 'undefined') ? huggee : {suite: window.describe, test: window.it, setup: window.beforeEach, teardown: window.afterEach}
   }
 
   return function (huggee) {
     huggee = resolveTargetFromEnv(root, huggee);
 
-    var hugged = mochaHug(huggee);
+    var hugged = jasmineHug(huggee);
 
     exportBefore(hugged, huggee);
     exportAfters(hugged, huggee, exportSandbox(hugged));

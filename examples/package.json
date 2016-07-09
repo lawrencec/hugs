@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git://github.com/lawrencec/hugs"
   },
+  "private": true,
   "keywords": [
     "tdd",
     "bdd",
@@ -20,14 +21,50 @@
   "main": "./examples.js",
   "dependencies": {
     "ava": "^0.15.1",
+    "babel-cli": "^6.10.1",
+    "babel-polyfill": "^6.9.1",
     "chai-as-promised": "^5.3.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chai": "^0.1.0",
+    "karma-chai-as-promised": "^0.1.2",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-junit-reporter": "^1.0.0",
+    "karma-mocha": "^1.0.1",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-spec-reporter": "0.0.26",
+    "npm-ls-scripts": "^0.1.2",
     "mocha": "^2.4.5",
     "tap": "^5.7.1"
   },
   "scripts": {
     "examples": "npm run example:ava; npm run example:mocha; npm run example:tap;",
+    "example:ava": "HUGS_LIB=ava ava --verbose --serial './examples.js'",
     "example:mocha": "HUGS_LIB=mocha _mocha --ui tdd './examples.js'",
     "example:tap": "HUGS_LIB=tap tap --reporter spec  './examples.js'",
-    "example:ava": "HUGS_LIB=ava ava --verbose --serial './examples.js'"
+    "example:browser:run": "karma start conf/karma.conf.js",
+    "example:browser": "npm run example:browser:jasmine -s; npm run example:browser:mocha -s; ",
+    "example:browser:mocha": "HUGS_TEST_LIB=mocha npm run example:browser:run -s",
+    "example:browser:jasmine": "HUGS_TEST_LIB=jasmine npm run example:browser:run -s",
+    "example:browser:debug": "karma start conf/karma.conf.js --log-level debug --single-run false --browsers Chrome",
+    "example:browser:dev": "karma start conf/karma.conf.js --single-run false --auto-watch --browsers Chrome",
+    "help": "ls-scripts"
+  },
+  "config": {
+    "scripts": {
+      "example:ava": "Run tap example",
+      "example:mocha": "Run mocha example",
+      "example:tap": "Run tap example",
+      "help": "List available npm run commands",
+      "example:browser": "Run browser examples using jasmine and mocha",
+      "example:browser:mocha": "Run browser examples using mocha",
+      "example:browser:jasmine": "Run browser examples using jasmine",
+      "example:browser:debug": "Run browser example in karma debug mode. use HUGS_TEST_LIB=mocha|jasmine to specify test lib to use",
+      "example:browser:dev": "Run browser example in karma dev mode. use HUGS_TEST_LIB=mocha|jasmine to specify test lib to use"
+    }
   }
 }

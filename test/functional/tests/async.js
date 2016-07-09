@@ -1,12 +1,12 @@
 'use strict';
 
-module.exports = (test) => {
-  const assert = test.assert;
+module.exports = function (test) {
+  var assert = test.assert;
 
-  return (done) => {
-    const val = true;
+  return function (done) {
+    var val = true;
 
-    setTimeout(() => {
+    setTimeout(function () {
       assert.equal(val, true);
 
       done();

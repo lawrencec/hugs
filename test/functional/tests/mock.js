@@ -1,14 +1,14 @@
 'use strict';
 
-module.exports = (test) => {
-  const assert = test.assert;
-  const mock = test.mock;
+module.exports = function (test) {
+  var assert = test.assert;
+  var mock = test.mock;
 
-  return (done) => {
-    const oUT = {
-      method: () => {}
+  return function (done) {
+    var oUT = {
+      method: function () {}
     };
-    const mocked = mock(oUT);
+    var mocked = mock(oUT);
 
     assert.typeOf(mocked.verify, 'function');
     mocked.expects('method').never();

@@ -1,33 +1,33 @@
 'use strict';
 
-const sinonExporter = require('../../../../src/exporters/sinon');
-const mocha = require('mocha');
-const sinon = require('sinon');
-const unroll = require('unroll');
-const assert = require('assert');
-const test = mocha.test;
-const suite = mocha.suite;
-const setup = mocha.setup;
-const teardown = mocha.teardown;
+var sinonExporter = require('../../../../src/exporters/sinon');
+var mocha = require('mocha');
+var sinon = require('sinon');
+var unroll = require('unroll');
+var assert = require('assert');
+var test = mocha.test;
+var suite = mocha.suite;
+var setup = mocha.setup;
+var teardown = mocha.teardown;
 
-let sandbox;
+var sandbox;
 
 sinon.assert.expose(assert, { prefix: '' });
 
 unroll.use(test);
 
-setup(() => {
+setup(function () {
   sandbox = sinon.sandbox.create();
 
 });
 
-teardown(() => {
+teardown(function () {
   sandbox.restore();
 });
 
-suite('Sinon exporter', () => {
-  test('createSandbox', () => {
-    const target = {};
+suite('Sinon exporter', function () {
+  test('createSandbox', function () {
+    var target = {};
     sinonExporter.createSandbox(target);
 
     assert.equal(typeof target.spy, 'function');
@@ -35,19 +35,19 @@ suite('Sinon exporter', () => {
     assert.equal(typeof target.mock, 'function');
   });
 
-  suite('restoreSandbox', () => {
-    test('with a sandbox', () => {
-      const target = {};
-      const sandbox = sinonExporter.createSandbox(target);
-      const doneFn = sandbox.spy();
+  suite('restoreSandbox', function () {
+    test('with a sandbox', function () {
+      var target = {};
+      var sandbox = sinonExporter.createSandbox(target);
+      var doneFn = sandbox.spy();
 
       sinonExporter.restoreSandbox(sandbox)(doneFn);
 
       assert.called(doneFn);
     });
 
-    test('without a sandbox', () => {
-      const doneFn = sandbox.spy();
+    test('without a sandbox', function () {
+      var doneFn = sandbox.spy();
 
       sinonExporter.restoreSandbox(undefined)(doneFn);
 
@@ -55,17 +55,17 @@ suite('Sinon exporter', () => {
     });
   });
 
-  suite('sandbox methods are delegated correctly', () => {
+  suite('sandbox methods are delegated correctly', function () {
     unroll(
       'for method #method',
-      (done, testArgs) => {
-        const aThing = {
-          method: () => {
+      function (done, testArgs) {
+        var aThing = {
+          method: function () {
           }
         };
 
-        const target = {};
-        const sandbox = sinonExporter.createSandbox(target);
+        var target = {};
+        var sandbox = sinonExporter.createSandbox(target);
 
         sandbox.spy(sandbox, testArgs.method);
 
@@ -81,14 +81,14 @@ suite('Sinon exporter', () => {
       ]
     );
 
-    test('for method "mock"', () => {
-      const aThing = {
-        method: () => {
+    test('for method "mock"', function () {
+      var aThing = {
+        method: function () {
         }
       };
 
-      const target = {};
-      const sandbox = sinonExporter.createSandbox(target);
+      var target = {};
+      var sandbox = sinonExporter.createSandbox(target);
 
       sandbox.spy(sandbox, 'mock');
 

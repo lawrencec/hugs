@@ -1,7 +1,7 @@
 'use strict';
 
-const sinonExporter = require('../exporters/sinon');
-const chaiExporter = require('../exporters/chai');
+var sinonExporter = require('../exporters/sinon');
+var chaiExporter = require('../exporters/chai');
 
 function exportSandbox(hugged) {
   return sinonExporter.createSandbox(hugged);
@@ -16,10 +16,10 @@ function exportOnly(hugged, huggee) {
 }
 
 function exportBefore(hugged, huggee) {
-  hugged.beforeEach = (f) => {
-    huggee.beforeEach((t) => {
-      const done = () => {};
-      Object.keys(t).forEach((p) => {
+  hugged.beforeEach = function (f) {
+    huggee.beforeEach(function (t) {
+      var done = function () {} ;
+      Object.keys(t).forEach(function (p) {
         done[p] = t[p];
       });
       f(done);
@@ -28,10 +28,10 @@ function exportBefore(hugged, huggee) {
 }
 
 function exportAfters(hugged, huggee, sandbox) {
-  hugged.afterEach = (f) => {
-    huggee.afterEach((t) => {
-      const done = () => {};
-      Object.keys(t).forEach((p) => {
+  hugged.afterEach = function (f) {
+    huggee.afterEach(function (t) {
+      var done = function () {} ;
+      Object.keys(t).forEach(function (p) {
         done[p] = t[p];
       });
       f(done);
@@ -42,15 +42,15 @@ function exportAfters(hugged, huggee, sandbox) {
 }
 
 function hugAva(huggee) {
-  const hugged = function mochaHug(title, testFunc) {
-    huggee.test(title, () => {
-      return testFunc(()=>{});
+  var hugged = function mochaHug(title, testFunc) {
+    huggee.test(title, function () {
+      return testFunc(function () {});
     });
   };
 
   hugged.cb = function (title, testFunc) {
-    huggee.test.cb(title, (t) => {
-      return testFunc(()=>{
+    huggee.test.cb(title, function (t) {
+      return testFunc(function () {
         t && t.end && t.end();
       });
     });
@@ -58,8 +58,8 @@ function hugAva(huggee) {
   return hugged;
 }
 
-module.exports = (huggee) => {
-  const hugged = hugAva(huggee);
+module.exports = function (huggee) {
+  var hugged = hugAva(huggee);
 
   exportBefore(hugged, huggee);
   exportAfters(hugged, huggee, exportSandbox(hugged));

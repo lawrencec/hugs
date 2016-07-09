@@ -1,7 +1,6 @@
 'use strict';
-
-const sinonExporter = require('../exporters/sinon');
-const chaiExporter = require('../exporters/chai');
+var sinonExporter = require('../exporters/sinon');
+var chaiExporter = require('../exporters/chai');
 
 function exportSandbox(hugged) {
   return sinonExporter.createSandbox(hugged);
@@ -13,8 +12,8 @@ function exportChaiAsserts(hugged) {
 
 function invokeLifeCycleCallback(lifeCycleTargets, lifeCycleMethod) {
   if (lifeCycleTargets && lifeCycleTargets.length) {
-    lifeCycleTargets.forEach((fn) => {
-      lifeCycleMethod((done) => {
+    lifeCycleTargets.forEach(function (fn) {
+      lifeCycleMethod(function (done) {
         fn(done);
       });
     });
@@ -37,13 +36,13 @@ function exportAfterCallbacks(hugged, sandbox) {
 }
 
 function hug(huggee) {
-  const hugged = function tapHug(title, testFunc) {
-    huggee.test(title, (t) => {
+  var hugged = function tapHug(title, testFunc) {
+    huggee.test(title, function (t) {
       invokeLifeCycleCallback(hugged._befores, t.beforeEach);
       invokeLifeCycleCallback(hugged._afters, t.afterEach);
 
-      return t.test(title, (tt) => {
-        return testFunc((err) => {
+      return t.test(title, function (tt) {
+        return testFunc(function (err) {
           tt && tt.end(err);
         });
       });
@@ -53,8 +52,8 @@ function hug(huggee) {
   return hugged;
 }
 
-module.exports = (huggee) => {
-  const hugged = hug(huggee);
+module.exports = function (huggee) {
+  var hugged = hug(huggee);
 
   exportBeforeCallbacks(hugged);
   exportAfterCallbacks(hugged, exportSandbox(hugged));

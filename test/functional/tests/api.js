@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = (test) => {
-  const assert = test.assert;
-  const chai = test.chai;
-  const mock = test.mock;
-  const spy = test.spy;
-  const stub = test.stub;
+module.exports = function (test) {
+  var assert = test.assert;
+  var chai = test.chai;
+  var mock = test.mock;
+  var spy = test.spy;
+  var stub = test.stub;
 
-  return (done) => {
+  return function (done) {
     assert.typeOf(assert, 'function');
     assert.typeOf(chai, 'object');
     assert.typeOf(mock, 'function');
