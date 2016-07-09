@@ -16,8 +16,9 @@ It does this by *wrapping* those frameworks with a consistent API.
 Currently, Hugs supports the following test frameworks:
 
 - [node-tap](http://www.node-tap.org/)
-- [mocha](https://mochajs.org/)
+- [mocha](https://mochajs.org/) (browser and node)
 - [AVA](https://github.com/avajs/ava) (currently serial mode only)
+- [Jasmine](https://jasmine.github.io) (browser only)
 
 Sinon spies, stubs and mocks are created using sinon's sandbox before every test (and torn down afterwards).
 
