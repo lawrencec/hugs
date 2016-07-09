@@ -16,6 +16,7 @@ var asyncTest = require('./tests/async');
 var mockTest = require('./tests/mock');
 var spyTest = require('./tests/spy');
 var stubTest = require('./tests/stub');
+var matcherTest = require('./tests/matcher');
 
 var test = hugs(require(libName));
 test('asserts', assertTests(test));
@@ -25,4 +26,5 @@ test('stub', stubTest(test));
 test('mock', mockTest(test));
 test('promise', promiseTest(test));
 test.cb('async', asyncTest(test));
+test('matcher', matcherTest(test));
 
