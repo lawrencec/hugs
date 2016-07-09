@@ -15,9 +15,17 @@ function vanillaFactory(hugMocha, hugJasmine) {
   }
 }
 
+function isValidHuggee(huggee) {
+  if (['function','object'].indexOf(typeof huggee) === -1) {
+    throw Error('huggee is not valid target. Expected a function or an object');
+  }
+}
+
 function neopolitanFactory(hugMocha, hugTap, hugAva) {
   return function hugs(huggee) {
     var hugged;
+
+    isValidHuggee(huggee);
 
     if (huggee.setup) {
       hugged = hugMocha(huggee);

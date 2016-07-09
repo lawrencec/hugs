@@ -41,6 +41,14 @@
     hugged.afterEach(sinonExporter.restoreSandbox(sandbox));
   }
 
+  function exportMatchers (hugged) {
+    sinonExporter.exportMatchers(hugged);
+  }
+
+  function exportCreateStubInstance(hugged) {
+    sinonExporter.exportCreateStubInstance(hugged);
+  }
+
   function jasmineHug(huggee) {
     var hugged = function (title, testFunc) {
       var isAsync = testFunc.length !== 0;
@@ -74,6 +82,8 @@
     exportAfters(hugged, huggee, exportSandbox(hugged));
     exportChaiAsserts(hugged);
     exportOnly(hugged, huggee);
+    exportMatchers(hugged);
+    exportCreateStubInstance(hugged);
 
     return hugged;
   };

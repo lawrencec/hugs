@@ -60,6 +60,9 @@ $> npm install
 $> npm run examples # runs examples under both mocha and tap
 $> npm run example:mocha # just run mocha example
 $> npm run example:tap # just run tap example
+$> npm run example:browser:mocha # just run browser mocha example
+$> npm run example:browser:jasmine # just run browser jasmine example
+$> npm run help # see all available npm run commands
 ```
 
 ```
@@ -122,7 +125,9 @@ The test object returned from a `hugs()` call has the following API:
 - assert - assertions object. Exposes sinon and chai assertions `test.assert.callCount(foo, 1)`)
 - beforeEach - Lifecycle method to register functions to execute before each test function
 - chai - Chai object.
+- createStubInstance - Sinon method for stubbing out constructors.
 - done - ends the test for non Promise tests. Can be passed `arguments` of the test callback or a done argument if specified in the test signature.  
+- match - Sinon's matcher api
 - mock - sinon mock (sandboxed for each test)
 - only (Mocha) - Runs a single test `test.only('a test', function(t){});`
 - spy - sinon spy (sandboxed for each test)
@@ -137,11 +142,19 @@ To run unit tests:
 npm run test:unit
 ```
 
-To run functional (mocha and tap) tests:
+To run functional, mocha and tap (node), as well as mocha and jasmine (browser) tests:
 
 ```
 npm run test:functional
 ```
+
+To run all browser functional tests only:
+
+```
+npm run test:browser
+```
+
+More options available; see `npm run help`
 
 ## Some things you need to know about hugs
 - Nested hugs (tests) are not currently supported which isn't necessarily a bad thing. Tests files can [become unwieldly with deeply nested tests](https://www.briefs.fm/3-minutes-with-kent/27).

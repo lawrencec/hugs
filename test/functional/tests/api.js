@@ -6,6 +6,8 @@ module.exports = function (test) {
   var mock = test.mock;
   var spy = test.spy;
   var stub = test.stub;
+  var match = test.match;
+  var createStubInstance = test.createStubInstance;
 
   return function (done) {
     assert.typeOf(assert, 'function');
@@ -13,6 +15,8 @@ module.exports = function (test) {
     assert.typeOf(mock, 'function');
     assert.typeOf(spy, 'function');
     assert.typeOf(stub, 'function');
+    assert.typeOf(match, 'function');
+    assert.typeOf(createStubInstance, 'function');
 
     done();
   };

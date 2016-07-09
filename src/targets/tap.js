@@ -35,6 +35,14 @@ function exportAfterCallbacks(hugged, sandbox) {
   hugged.afterEach(sinonExporter.restoreSandbox(sandbox));
 }
 
+function exportMatchers (hugged) {
+  sinonExporter.exportMatchers(hugged);
+}
+
+function exportCreateStubInstance(hugged) {
+  sinonExporter.exportCreateStubInstance(hugged);
+}
+
 function hug(huggee) {
   var hugged = function tapHug(title, testFunc) {
     huggee.test(title, function (t) {
@@ -58,6 +66,8 @@ module.exports = function (huggee) {
   exportBeforeCallbacks(hugged);
   exportAfterCallbacks(hugged, exportSandbox(hugged));
   exportChaiAsserts(hugged);
+  exportMatchers(hugged);
+  exportCreateStubInstance(hugged);
 
   return hugged;
 };

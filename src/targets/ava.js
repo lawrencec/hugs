@@ -41,6 +41,14 @@ function exportAfters(hugged, huggee, sandbox) {
   hugged.afterEach.always(sinonExporter.restoreSandbox(sandbox));
 }
 
+function exportMatchers (hugged) {
+  sinonExporter.exportMatchers(hugged);
+}
+
+function exportCreateStubInstance(hugged) {
+  sinonExporter.exportCreateStubInstance(hugged);
+}
+
 function hugAva(huggee) {
   var hugged = function mochaHug(title, testFunc) {
     huggee.test(title, function () {
@@ -65,6 +73,8 @@ module.exports = function (huggee) {
   exportAfters(hugged, huggee, exportSandbox(hugged));
   exportChaiAsserts(hugged);
   exportOnly(hugged, huggee);
+  exportMatchers(hugged);
+  exportCreateStubInstance(hugged);
 
   return hugged;
 };
