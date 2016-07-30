@@ -1,3 +1,5 @@
 .nyc_output
 target
 node_modules
+.history
+.idea
