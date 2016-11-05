@@ -70,7 +70,7 @@
   }
 
   function resolveTargetFromEnv(window, huggee) {
-    return (typeof window === 'undefined') ? huggee : {test: window.test, setup: window.setup, teardown: window.teardown}
+    return (typeof window === 'undefined') ? huggee : {test: window.test, setup: window.setup, teardown: window.teardown};
   }
 
   return function (huggee) {

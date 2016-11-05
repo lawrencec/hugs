@@ -109,6 +109,14 @@
       "complexity": [
         "error",
         3
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "consistent-return": [
+        "error",
+        {}
       ]
     }
   },

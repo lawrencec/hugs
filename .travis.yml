@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - "4"
 script:
+  - npm run lint
   - npm run test:unit:coverage:cc
   - npm run test:functional:ava
   - npm run test:functional:mocha
