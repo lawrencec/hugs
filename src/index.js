@@ -12,7 +12,7 @@ function vanillaFactory(hugMocha, hugJasmine) {
     }
 
     return hugged;
-  }
+  };
 }
 
 function isValidHuggee(huggee) {
@@ -36,7 +36,7 @@ function neopolitanFactory(hugMocha, hugTap, hugAva) {
     }
 
     return hugged;
-  }
+  };
 }
 
 (function (root, factory) {

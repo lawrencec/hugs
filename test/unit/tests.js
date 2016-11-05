@@ -377,6 +377,6 @@ suite('Hugs', function () {
               /huggee is not valid target. Expected a function or an object/
           );
         }
-    )
+    );
   });
 });

@@ -16,7 +16,10 @@ function exportOnly(hugged, huggee) {
 }
 
 function exportBefore(hugged, huggee) {
+  var sandbox = exportSandbox(hugged);
+
   hugged.beforeEach = function (f) {
+    huggee.beforeEach(sinonExporter.restoreSandbox(sandbox));
     huggee.beforeEach(function (t) {
       var done = function () {} ;
       Object.keys(t).forEach(function (p) {
@@ -27,10 +30,10 @@ function exportBefore(hugged, huggee) {
   };
 }
 
-function exportAfters(hugged, huggee, sandbox) {
+function exportAfters(hugged, huggee) {
   hugged.afterEach = function (f) {
     huggee.afterEach(function (t) {
-      var done = function () {} ;
+      var done = function () {};
       Object.keys(t).forEach(function (p) {
         done[p] = t[p];
       });
@@ -38,7 +41,6 @@ function exportAfters(hugged, huggee, sandbox) {
     });
   };
   hugged.afterEach.always = huggee.afterEach.always;
-  hugged.afterEach.always(sinonExporter.restoreSandbox(sandbox));
 }
 
 function exportMatchers (hugged) {
@@ -70,7 +72,7 @@ module.exports = function (huggee) {
   var hugged = hugAva(huggee);
 
   exportBefore(hugged, huggee);
-  exportAfters(hugged, huggee, exportSandbox(hugged));
+  exportAfters(hugged, huggee);
   exportChaiAsserts(hugged);
   exportOnly(hugged, huggee);
   exportMatchers(hugged);
