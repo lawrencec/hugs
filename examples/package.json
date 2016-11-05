@@ -46,7 +46,7 @@
   },
   "scripts": {
     "examples": "npm run example:ava; npm run example:mocha; npm run example:tap; npm run example:browser",
-    "example:ava": "HUGS_LIB=ava ava --verbose --serial './examples.js'",
+    "example:ava": "HUGS_LIB=ava ava --verbose './examples.js'",
     "example:mocha": "HUGS_LIB=mocha _mocha --ui tdd './examples.js'",
     "example:tap": "HUGS_LIB=tap tap --reporter spec  './examples.js'",
     "example:browser:run": "karma start conf/karma.conf.js",

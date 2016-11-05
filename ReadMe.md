@@ -17,7 +17,7 @@ Currently, Hugs supports the following test frameworks:
 
 - [node-tap](http://www.node-tap.org/)
 - [mocha](https://mochajs.org/) (browser and node)
-- [AVA](https://github.com/avajs/ava) (currently serial mode only)
+- [AVA](https://github.com/avajs/ava) (parallel and serial modes)
 - [Jasmine](https://jasmine.github.io) (browser only)
 
 Sinon spies, stubs and mocks are created using sinon's sandbox before every test (and torn down afterwards).
@@ -103,7 +103,7 @@ Different frameworks have slightly different mechanisms for ending tests with as
 In order to have a test be written in the same way regardless of the test runner used, the `done()` method ends the test correctly depending on the given runner, calling either `t.end()`, `done()` or returning a promise.
 For mocha users, this means that all tests need to be written as if it's an async test i.e `done` function is a parameter to the test. The `--async-only` flag for mocha cli is useful here.
 AVA uses a different function altogether for async tests called `test.cb`. This meant adding a `cb()` function to the hugs interface which when using mocha or tap is actually the same method as their respective `test()` method.
- 
+
 
 | Type    | Lifecycle | async (callback)                    | async (promise)                            |
 |---------|-----------|-------------------------------------|--------------------------------------------|
@@ -126,7 +126,7 @@ The test object returned from a `hugs()` call has the following API:
 - beforeEach - Lifecycle method to register functions to execute before each test function
 - chai - Chai object.
 - createStubInstance - Sinon method for stubbing out constructors.
-- done - ends the test for non Promise tests. Can be passed `arguments` of the test callback or a done argument if specified in the test signature.  
+- done - ends the test for non Promise tests. Can be passed `arguments` of the test callback or a done argument if specified in the test signature.
 - match - Sinon's matcher api
 - mock - sinon mock (sandboxed for each test)
 - only (Mocha) - Runs a single test `test.only('a test', function(t){});`

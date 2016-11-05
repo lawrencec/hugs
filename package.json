@@ -50,7 +50,6 @@
     "npm-check": "^5.2.1",
     "npm-ls-scripts": "^0.1.2",
     "nyc": "^8.3.2",
-    "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
     "tap": "8.0.0",
     "unroll": "1.1.0"
@@ -73,7 +72,7 @@
     "test:functional": "npm run test:functional:ava -s; npm run test:functional:mocha -s; npm run test:functional:tap -s; npm run test:browser -s",
     "test:functional:mocha": "HUGS_LIB=mocha _mocha --async-only --ui tdd 'test/functional/tests.js'",
     "test:functional:tap": "HUGS_LIB=tap tap './test/functional/tests.js'",
-    "test:functional:ava": "HUGS_LIB=ava ava --verbose --serial './test/functional/tests.js'",
+    "test:functional:ava": "HUGS_LIB=ava ava --verbose './test/functional/tests.js'",
     "test:report": "nyc report --reporter=html",
     "test:unit:coverage": "nyc --reporter=lcov --reporter=text npm run test:unit; npm run test:report",
     "test:unit:coverage:cc": "npm run test:unit:coverage; codeclimate-test-reporter < target/coverage/lcov.info",
