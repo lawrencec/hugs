@@ -96,6 +96,25 @@ test(
 
 More examples can be seen in the `/examples` directory
 
+#### Browser tests using Karma
+
+There isn't a karma framework for hugs as it is only a wrapper around testing frameworks.
+In order to configure karma to use hugs, configure karma as if you were using your framework of choice e.g mocha
+and add the following lines to your `files` section *before* your tests files like so:
+
+```
+files: [
+  'index.js', // thing you are testing
+  'node_modules/hugs/src/exporters/chai.js', // add this
+  'node_modules/hugs/src/exporters/sinon.js', // add this
+  'node_modules/hugs/src/targets/mocha.js', // add this and replace with tape or ava etc
+  'node_modules/hugs/src/index.js',  // add this
+  './test/index.js' // your test files.
+],
+```
+
+See the `/examples` directory for a working example of a karma setup.
+
 ### Ending tests
 
 Different frameworks have slightly different mechanisms for ending tests with asynchronous code.
