@@ -52,7 +52,7 @@
     "nyc": "^8.3.2",
     "sinon-chai": "^2.8.0",
     "tap": "8.0.1",
-    "unroll": "1.1.0"
+    "unroll": "1.2.0"
   },
   "scripts": {
     "dep-check": "npm-check",
