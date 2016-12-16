@@ -12,7 +12,7 @@ module.exports = function (config) {
       // base path, that will be used to resolve files and exclude
       basePath: '../../../../',
 
-      frameworks: [libName, 'chai-sinon', 'chai-as-promised', 'chai'],
+      frameworks: [libName, 'sinon', 'chai-as-promised', 'chai'],
 
       // list of files / patterns to load in the browser
       files: [
