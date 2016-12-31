@@ -22,7 +22,6 @@
     "tap"
   ],
   "dependencies": {
-    "karma-sinon": "^1.0.5",
     "sinon": "^1.17.4"
   },
   "devDependencies": {
