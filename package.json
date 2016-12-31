@@ -1,6 +1,6 @@
 {
   "name": "hugs",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Hugs - a wrapper for test frameworks",
   "author": "Lawrence Carvalho",
   "license": "MIT",
