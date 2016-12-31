@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = function (test) {
-  var assert = test.assert;
-  var chai = test.chai;
+  var assert = require('assert');
   var mock = test.mock;
   var spy = test.spy;
   var stub = test.stub;
@@ -10,13 +9,12 @@ module.exports = function (test) {
   var createStubInstance = test.createStubInstance;
 
   return function (done) {
-    assert.typeOf(assert, 'function');
-    assert.typeOf(chai, 'object');
-    assert.typeOf(mock, 'function');
-    assert.typeOf(spy, 'function');
-    assert.typeOf(stub, 'function');
-    assert.typeOf(match, 'function');
-    assert.typeOf(createStubInstance, 'function');
+    assert.equal(typeof assert, 'function');
+    assert.equal(typeof mock, 'function');
+    assert.equal(typeof spy, 'function');
+    assert.equal(typeof stub, 'function');
+    assert.equal(typeof match, 'function');
+    assert.equal(typeof createStubInstance, 'function');
 
     done();
   };

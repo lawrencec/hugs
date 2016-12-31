@@ -10,15 +10,11 @@ if (expectedLibs.indexOf(libName) === -1) {
 
 var hugs = require('../src/index');
 var testLib = require(libName);
-var chaiAsPromised = require('chai-as-promised');
 var test = hugs(testLib);
-var assert = test.assert;
+var assert = require('assert');
 var mock = test.mock;
 var spy = test.spy;
 var stub = test.stub;
-var chai = test.chai;
-
-chai.use(chaiAsPromised);
 
 var oUTAlpha = { method: function () {} };
 var oUTBeta = { method: function () {} };
@@ -33,7 +29,7 @@ test.afterEach(function (done) {
 });
 
 test(
-  'assertion',
+  'assertion (' + libName + ')',
   function (done) {
     assert.callCount(oUTAlpha.method, 0);
     assert.equal(Object.keys(oUTAlpha).length, 1, 'number of methods do not match');
@@ -42,7 +38,7 @@ test(
 );
 
 test(
-  'promise',
+  'promise (' + libName + ')',
   function () {
     return Promise.resolve(2 + 2)
         .then(function (result) {
@@ -51,17 +47,8 @@ test(
   }
 );
 
-test(
-  'promise with chai as promised',
-  function () {
-    var promise = Promise.resolve(2 + 2);
-
-    return assert.eventually.equal(promise, 4);
-  }
-);
-
 test.cb(
-  'async',
+  'async (' + libName + ')',
   function (done) {
     var val = true;
 
@@ -73,7 +60,7 @@ test.cb(
 );
 
 test(
-  'spy',
+  'spy (' + libName + ')',
   function (done) {
     oUTAlpha.method(1, 2);
 
@@ -85,7 +72,7 @@ test(
 );
 
 test(
-  'mock',
+  'mock (' + libName + ')',
   function (done) {
     var mocked = mock(oUTBeta);
 
@@ -97,10 +84,10 @@ test(
 );
 
 test(
-  'stub',
+  'stub (' + libName + ')',
   function (done) {
     stub(oUTBeta, 'method');
-    assert.typeOf(oUTBeta.method.throws, 'function', 'expected "throws" to be a function');
+    assert.equal(typeof oUTBeta.method.throws, 'function', 'expected "throws" to be a function');
     done();
   }
 );

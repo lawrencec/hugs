@@ -42,16 +42,14 @@ suite('Hugs', function () {
           var huggedLib = hugs(ava);
           var huggedInterface = Object.keys(huggedLib).sort();
 
-          assert.equal(huggedInterface.length, 11);
+          assert.equal(huggedInterface.length, 9);
 
           assert.deepEqual(
               huggedInterface,
               [
                 'afterEach',
-                'assert',
                 'beforeEach',
                 'cb',
-                'chai',
                 'createStubInstance',
                 'match',
                 'mock',
@@ -69,16 +67,14 @@ suite('Hugs', function () {
         var huggedLib = hugs(mocha);
         var huggedInterface = Object.keys(huggedLib).sort();
 
-        assert.equal(huggedInterface.length, 11);
+        assert.equal(huggedInterface.length, 9);
 
         assert.deepEqual(
           huggedInterface,
           [
             'afterEach',
-            'assert',
             'beforeEach',
             'cb',
-            'chai',
             'createStubInstance',
             'match',
             'mock',
@@ -96,7 +92,7 @@ suite('Hugs', function () {
         var huggedLib = hugs(tap);
         var huggedInterface = Object.keys(huggedLib).sort();
 
-        assert.equal(huggedInterface.length, 12);
+        assert.equal(huggedInterface.length, 10);
 
         assert.deepEqual(
           huggedInterface,
@@ -104,10 +100,8 @@ suite('Hugs', function () {
             '_afters',
             '_befores',
             'afterEach',
-            'assert',
             'beforeEach',
             'cb',
-            'chai',
             'createStubInstance',
             'match',
             'mock',

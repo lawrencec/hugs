@@ -6,26 +6,25 @@
   if (typeof define === 'function' && define.amd) {
     define(
       [
-        '../exporters/sinon',
-        '../exporters/chai'
+        '../exporters/sinon'
       ],
       factory
     );
   } else if (typeof module === 'object' && module.exports) {
     module.exports = factory(
       require('../exporters/sinon'),
-      require('../exporters/chai')
+      require('assert')
     );
   } else {
-    root.hugMocha = factory(root.sinonExporter, root.chaiExporter, root);
+    root.hugMocha = factory(root.sinonExporter, root.assert, root);
   }
-}(this, function (sinonExporter, chaiExporter, root) {
+}(this, function (sinonExporter, assert, root) {
   function exportSandbox(hugged) {
     return sinonExporter.createSandbox(hugged);
   }
 
-  function exportChaiAsserts(hugged) {
-    return chaiExporter.exportAsserts(hugged);
+  function exportAsserts() {
+    return sinonExporter.exportAsserts();
   }
 
   function exportOnly(hugged, huggee) {
@@ -80,7 +79,7 @@
 
     exportBefore(hugged, huggee);
     exportAfters(hugged, huggee, exportSandbox(hugged));
-    exportChaiAsserts(hugged);
+    exportAsserts();
     exportOnly(hugged, huggee);
     exportMatchers(hugged);
     exportCreateStubInstance(hugged);

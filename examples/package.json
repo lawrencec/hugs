@@ -23,28 +23,28 @@
     "ava": "^0.17.0",
     "babel-cli": "^6.10.1",
     "babel-polyfill": "^6.9.1",
-    "chai": "^3.5.0",
-    "chai-as-promised": "5.3.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.3.0",
     "karma-babel-preprocessor": "^6.0.1",
-    "karma-chai": "^0.1.0",
-    "karma-chai-as-promised": "^0.1.2",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.0.0",
+    "karma-espower-preprocessor": "^1.1.0",
     "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-phantomjs-launcher": "^1.0.1",
+    "karma-power-assert": "0.0.4",
     "karma-sinon": "^1.0.5",
     "karma-spec-reporter": "0.0.26",
-    "npm-ls-scripts": "^0.1.2",
     "mocha": "^3.1.2",
+    "npm-ls-scripts": "^0.1.2",
+    "power-assert": "^1.4.2",
     "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0",
     "tap": "8.0.0"
   },
   "scripts": {
+    "dep-check": "npm-check",
+    "dep-check-i": "npm-check -u",
     "examples": "npm run example:ava; npm run example:mocha; npm run example:tap; npm run example:browser",
     "example:ava": "HUGS_LIB=ava ava --verbose './examples.js'",
     "example:mocha": "HUGS_LIB=mocha _mocha --ui tdd './examples.js'",
@@ -59,6 +59,8 @@
   },
   "config": {
     "scripts": {
+      "dep-check": "Check outdated and unused dependecies",
+      "dep-check-i": "Interactively check outdated and unused dependecies",
       "example:ava": "Run tap example",
       "example:mocha": "Run mocha example",
       "example:tap": "Run tap example",
@@ -70,5 +72,8 @@
       "example:browser:dev": "Run browser example in karma dev mode. use HUGS_TEST_LIB=mocha|jasmine to specify test lib to use",
       "examples": "Run all examples"
     }
+  },
+  "devDependencies": {
+    "npm-check": "^5.4.0"
   }
 }

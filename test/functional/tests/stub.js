@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (test) {
-  var assert = test.assert;
+  var assert = require('assert');
   var stub = test.stub;
 
   return function (done) {
@@ -11,7 +11,7 @@ module.exports = function (test) {
 
     stub(oUT, 'method');
 
-    assert.typeOf(oUT.method.throws, 'function');
+    assert.equal(typeof oUT.method.throws, 'function');
 
     done();
   };

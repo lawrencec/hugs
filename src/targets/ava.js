@@ -1,14 +1,13 @@
 'use strict';
 
 var sinonExporter = require('../exporters/sinon');
-var chaiExporter = require('../exporters/chai');
 
 function exportSandbox(hugged) {
   return sinonExporter.createSandbox(hugged);
 }
 
-function exportChaiAsserts(hugged) {
-  return chaiExporter.exportAsserts(hugged);
+function exportAsserts() {
+  return sinonExporter.exportAsserts();
 }
 
 function exportOnly(hugged, huggee) {
@@ -73,7 +72,7 @@ module.exports = function (huggee) {
 
   exportBefore(hugged, huggee);
   exportAfters(hugged, huggee);
-  exportChaiAsserts(hugged);
+  exportAsserts();
   exportOnly(hugged, huggee);
   exportMatchers(hugged);
   exportCreateStubInstance(hugged);

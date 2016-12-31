@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (test) {
-  var assert = test.assert;
+  var assert = require('assert');
 
   return function (done) {
     var oUT = {

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (test) {
-  var assert = test.assert;
+  var assert = require('assert');
   var mock = test.mock;
 
   return function (done) {
@@ -10,7 +10,7 @@ module.exports = function (test) {
     };
     var mocked = mock(oUT);
 
-    assert.typeOf(mocked.verify, 'function');
+    assert.equal(typeof mocked.verify, 'function');
     mocked.expects('method').never();
     mocked.verify();
     done();
