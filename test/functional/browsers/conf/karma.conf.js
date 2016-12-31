@@ -12,12 +12,11 @@ module.exports = function (config) {
       // base path, that will be used to resolve files and exclude
       basePath: '../../../../',
 
-      frameworks: [libName, 'sinon', 'chai-as-promised', 'chai'],
+      frameworks: [libName, 'sinon', 'power-assert'],
 
       // list of files / patterns to load in the browser
       files: [
         'node_modules/babel-polyfill/dist/polyfill.js',
-        'src/exporters/chai.js',
         'src/exporters/sinon.js',
         'src/targets/' + libName + '.js',
         'src/index.js',
@@ -28,7 +27,8 @@ module.exports = function (config) {
       exclude: [],
 
       preprocessors: {
-        'lib/*.js': ['coverage']
+        'lib/*.js': ['coverage'],
+        './test/functional/browsers/tests.js': ['espower']
       },
 
       // use dots reporter, as travis terminal does not support escaping sequences

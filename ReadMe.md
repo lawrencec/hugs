@@ -36,7 +36,7 @@ expect(anObject.aMethod).to.have.been.calledWith("foo");
 
 Less typing means more time to hold the hand of your favourite person/pet/piñata instead!
 
-However, if you *really* want to type more things, then you can as the `chai` object is publicly exposed.
+However, if you *really* want to type more things, then you still can as Hugs does not mandate you have to use asserts.
 
 ## Why?
 
@@ -74,7 +74,7 @@ let hugs = require('hugs');
 let test = hugs(require('mocha'));
 
 let spy = test.spy;
-let assert = test.assert;
+let assert = require('assert');
 
 let oUT = { method: () => { } };
 
@@ -85,7 +85,7 @@ test(
 
     oUT.method(1, 2);
 
-    assert.callCount(oUT.method, 1);
+    assert.callCount(oUT.method, 1); // sinon assertions exposed onto native asserts object
     assert.calledWith(oUT.method, 1, 2);
 
     done();
@@ -105,7 +105,6 @@ and add the following lines to your `files` section *before* your tests files li
 ```
 files: [
   'index.js', // thing you are testing
-  'node_modules/hugs/src/exporters/chai.js', // add this
   'node_modules/hugs/src/exporters/sinon.js', // add this
   'node_modules/hugs/src/targets/mocha.js', // add this and replace with tape or ava etc
   'node_modules/hugs/src/index.js',  // add this
@@ -141,9 +140,8 @@ AVA uses a different function altogether for async tests called `test.cb`. This 
 The test object returned from a `hugs()` call has the following API:
 
 - afterEach - Lifecycle method to register functions to execute after each test function
-- assert - assertions object. Exposes sinon and chai assertions `test.assert.callCount(foo, 1)`)
+- assert - assertions object. Exposes sinon assertions `test.assert.callCount(foo, 1)`)
 - beforeEach - Lifecycle method to register functions to execute before each test function
-- chai - Chai object.
 - createStubInstance - Sinon method for stubbing out constructors.
 - done - ends the test for non Promise tests. Can be passed `arguments` of the test callback or a done argument if specified in the test signature.
 - match - Sinon's matcher api

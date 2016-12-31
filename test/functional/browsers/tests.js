@@ -11,7 +11,6 @@ if (expectedLibs.indexOf(libName) === -1) {
 
 var testLib = window[libName];
 var test = window.hugs(testLib);
-var assert = test.assert;
 var mock = test.mock;
 var spy = test.spy;
 var stub = test.stub;
@@ -28,20 +27,18 @@ test.afterEach(function (done) {
   done && done();
 });
 
-test('api',
+test('api (' + libName + ')',
     function () {
-      assert.typeOf(test.assert, 'function');
-      assert.typeOf(test.chai, 'object');
-      assert.typeOf(test.mock, 'function');
-      assert.typeOf(test.spy, 'function');
-      assert.typeOf(test.stub, 'function');
-      assert.typeOf(test.match, 'function');
-      assert.typeOf(test.createStubInstance, 'function');
+      assert.equal(typeof test.mock, 'function');
+      assert.equal(typeof test.spy, 'function');
+      assert.equal(typeof test.stub, 'function');
+      assert.equal(typeof test.match, 'function');
+      assert.equal(typeof test.createStubInstance, 'function');
     }
 );
 
 test(
-    'assertion',
+    'assertion (' + libName + ')',
     function (done) {
       assert.callCount(oUTAlpha.method, 0);
       assert.equal(Object.keys(oUTAlpha).length, 1, 'number of methods do not match');
@@ -50,7 +47,7 @@ test(
 );
 
 test(
-    'promise',
+    'promise (' + libName + ')',
     function () {
       return Promise.resolve(2 + 2)
           .then(function (result) {
@@ -59,17 +56,8 @@ test(
     }
 );
 
-test(
-    'promise with chai as promised',
-    function () {
-      var promise = Promise.resolve(2 + 2);
-
-      return assert.eventually.equal(promise, 4);
-    }
-);
-
 test.cb(
-    'async',
+    'async (' + libName + ')',
     function (done) {
       var val = true;
 
@@ -81,7 +69,7 @@ test.cb(
 );
 
 test(
-    'spy',
+    'spy (' + libName + ')',
     function (done) {
       oUTAlpha.method(1, 2);
 
@@ -93,7 +81,7 @@ test(
 );
 
 test(
-    'mock',
+    'mock (' + libName + ')',
     function (done) {
       var mocked = mock(oUTBeta);
 
@@ -105,10 +93,10 @@ test(
 );
 
 test(
-    'stub',
+    'stub (' + libName + ')',
     function (done) {
       stub(oUTBeta, 'method');
-      assert.typeOf(oUTBeta.method.throws, 'function', 'expected "throws" to be a function');
+      assert.equal(typeof oUTBeta.method.throws, 'function', 'expected "throws" to be a function');
       done();
     }
 );

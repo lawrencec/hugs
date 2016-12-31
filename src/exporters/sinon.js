@@ -7,18 +7,20 @@
     // AMD. Register as an anonymous module.
     define(
         [
-          'sinon'
+          'sinon',
+          'assert'
         ],
         factory
     );
   } else if (typeof module === 'object' && module.exports) {
     module.exports = factory(
-      require('sinon')
+      require('sinon'),
+      require('assert')
     );
   } else {
-    root.sinonExporter = factory(root.sinon);
+    root.sinonExporter = factory(root.sinon, root.assert);
   }
-}(this, function (sinon) {
+}(this, function (sinon, assert) {
   function createSandbox(hugged) {
     var sandbox = sinon.sandbox.create();
 
@@ -50,9 +52,14 @@
     hugged.createStubInstance = sinon.createStubInstance;
   }
 
+  function exportAsserts() {
+    sinon.assert.expose(assert, { prefix: '' });
+  }
+
   return {
     createSandbox: createSandbox,
     restoreSandbox: restoreSandbox,
+    exportAsserts: exportAsserts,
     exportMatchers: exportMatchers,
     exportCreateStubInstance: exportCreateStubInstance
   };

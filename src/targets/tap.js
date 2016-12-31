@@ -1,13 +1,12 @@
 'use strict';
 var sinonExporter = require('../exporters/sinon');
-var chaiExporter = require('../exporters/chai');
 
 function exportSandbox(hugged) {
   return sinonExporter.createSandbox(hugged);
 }
 
-function exportChaiAsserts(hugged) {
-  return chaiExporter.exportAsserts(hugged);
+function exportAsserts() {
+  return sinonExporter.exportAsserts();
 }
 
 function invokeLifeCycleCallback(lifeCycleTargets, lifeCycleMethod) {
@@ -65,7 +64,7 @@ module.exports = function (huggee) {
 
   exportBeforeCallbacks(hugged);
   exportAfterCallbacks(hugged, exportSandbox(hugged));
-  exportChaiAsserts(hugged);
+  exportAsserts();
   exportMatchers(hugged);
   exportCreateStubInstance(hugged);
 
