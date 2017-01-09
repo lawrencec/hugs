@@ -53,7 +53,7 @@
     "npm-ls-scripts": "^0.1.2",
     "nyc": "^8.3.2",
     "power-assert": "^1.4.2",
-    "tap": "8.0.1",
+    "tap": "9.0.3",
     "unroll": "1.2.0"
   },
   "scripts": {
