@@ -54,7 +54,7 @@
     "nyc": "^8.3.2",
     "power-assert": "^1.4.2",
     "tap": "8.0.1",
-    "unroll": "1.2.0"
+    "unroll": "1.2.1"
   },
   "scripts": {
     "dep-check": "npm-check",
