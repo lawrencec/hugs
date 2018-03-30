@@ -39,6 +39,7 @@ function neopolitanFactory(hugMocha, hugTap, hugAva) {
   };
 }
 
+  // eslint-disable-next-line complexity
 (function (root, factory) {
   /* istanbul ignore next */
   if (typeof define === 'function' && define.amd) {

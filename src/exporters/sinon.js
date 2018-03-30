@@ -1,6 +1,7 @@
 /*eslint-env browser, amd */
 'use strict';
 
+// eslint-disable-next-line complexity
 (function (root, factory) {
   /* istanbul ignore next */
   if (typeof define === 'function' && define.amd) {
@@ -38,6 +39,7 @@
   }
 
   function restoreSandbox(sandbox) {
+    // eslint-disable-next-line complexity
     return function (done) {
       sandbox && sandbox.restore();
       done && typeof done === 'function' && done();
