@@ -51,7 +51,7 @@
     "mochawesome": "^3.0.2",
     "npm-check": "^5.2.1",
     "npm-ls-scripts": "^0.1.2",
-    "nyc": "^11.6.0",
+    "nyc": "^14.1.0",
     "power-assert": "^1.4.2",
     "sinon": "^4.5.0",
     "tap": "^11.1.3",
