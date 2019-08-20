@@ -38,7 +38,7 @@
     "karma": "^2.0.0",
     "karma-babel-preprocessor": "^7.0.0",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.0.0",
+    "karma-coverage": "^2.0.1",
     "karma-espower-preprocessor": "^1.1.0",
     "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.0.0",
