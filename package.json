@@ -32,7 +32,7 @@
     "eslint": "^4.19.1",
     "eslint-config-iplayer-es6": "^3.1.0",
     "eslint-friendly-formatter": "^4.0.0",
-    "eslint-plugin-mocha": "^4.7.0",
+    "eslint-plugin-mocha": "^6.3.0",
     "intelli-espower-loader": "^1.0.1",
     "jasmine-core": "^3.1.0",
     "karma": "^2.0.0",
