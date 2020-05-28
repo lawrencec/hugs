@@ -40,7 +40,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.0.0",
     "karma-espower-preprocessor": "^1.1.0",
-    "karma-jasmine": "^1.0.2",
+    "karma-jasmine": "^3.3.0",
     "karma-junit-reporter": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-phantomjs-launcher": "^1.0.1",
